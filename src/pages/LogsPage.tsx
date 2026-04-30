@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Search, Settings, Calendar, Flame, Activity, ChevronRight, ChevronDown, Loader2, X } from 'lucide-react';
+import { Settings, Calendar, Flame, Activity, ChevronRight, ChevronDown, Loader2, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // 1. Tipe data mentah dari Backend (Sesuai schema.prisma)

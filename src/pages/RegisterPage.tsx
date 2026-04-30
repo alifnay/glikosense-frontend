@@ -18,7 +18,7 @@ export default function RegisterPage() {
         
         try {
             // Mengirim data form ke API Node.js
-            const response = await axios.post('https://glikosense-backend.vercel.app/api/register', {
+            await axios.post('https://glikosense-backend.vercel.app/api/register', {
                 nama: name,
                 email: email,
                 password: password,

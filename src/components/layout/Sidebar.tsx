@@ -1,5 +1,5 @@
 // src/components/layout/Sidebar.tsx
-import { Plus, MessageSquare, User, GraduationCap } from 'lucide-react';
+import { Plus, MessageSquare, GraduationCap } from 'lucide-react';
 
 export default function Sidebar() {
     return (

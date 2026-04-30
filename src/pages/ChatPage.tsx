@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Sparkles, Dumbbell, Flame, Utensils, Search, Settings, Check, Loader2, AlertCircle, Droplet } from 'lucide-react';
+import { Sparkles, Dumbbell, Flame, Utensils, Settings, Check, Loader2, AlertCircle, Droplet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // 1. Interface yang sudah diperbarui sesuai Output Flask & MySQL

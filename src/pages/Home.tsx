@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Search, Settings, Sparkles, TrendingUp, Activity, Droplets, CheckCircle2, Loader2, HelpCircle, X, BookOpen, Zap, Apple, Utensils } from 'lucide-react';
+import { Settings, Sparkles, TrendingUp, Activity, Droplets, CheckCircle2, Loader2, HelpCircle, X, BookOpen, Zap, Apple, Utensils } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -60,17 +60,6 @@ const FOOD_IMG_MAP: Record<string, string> = {
     "ayam": "https://cdn3d.iconscout.com/3d/premium/thumb/chicken-leg-5727908-4800395.png",
     "roti": "https://cdn3d.iconscout.com/3d/premium/thumb/bread-5727909-4800396.png",
     "default": "https://cdn3d.iconscout.com/3d/premium/thumb/salad-bowl-5727926-4800413.png",
-};
-
-const getFoodImg = (nama: string) => {
-    const key = Object.keys(FOOD_IMG_MAP).find(k => nama.toLowerCase().includes(k));
-    return key ? FOOD_IMG_MAP[key] : FOOD_IMG_MAP["default"];
-};
-
-const getKategoriBG = (bg: number): string => {
-    if (bg >= 20) return "HIGH GL";
-    if (bg >= 11) return "MED GL";
-    return "LOW GL";
 };
 
 const TARGET_KALORI_KELUAR = 600;
