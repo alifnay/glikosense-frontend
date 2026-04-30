@@ -52,16 +52,6 @@ interface StreakDay {
     total_beban_glikemik?: number;
 }
 
-// Gambar fallback berdasarkan nama makanan
-const FOOD_IMG_MAP: Record<string, string> = {
-    "nasi": "https://cdn3d.iconscout.com/3d/premium/thumb/rice-bowl-5727931-4800418.png",
-    "telur": "https://cdn3d.iconscout.com/3d/premium/thumb/fried-egg-5727914-4800401.png",
-    "omelette": "https://cdn3d.iconscout.com/3d/premium/thumb/fried-egg-5727914-4800401.png",
-    "ayam": "https://cdn3d.iconscout.com/3d/premium/thumb/chicken-leg-5727908-4800395.png",
-    "roti": "https://cdn3d.iconscout.com/3d/premium/thumb/bread-5727909-4800396.png",
-    "default": "https://cdn3d.iconscout.com/3d/premium/thumb/salad-bowl-5727926-4800413.png",
-};
-
 const TARGET_KALORI_KELUAR = 600;
 
 export default function Home() {
