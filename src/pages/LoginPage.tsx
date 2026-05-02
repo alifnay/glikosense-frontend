@@ -15,12 +15,10 @@ export default function LoginPage() {
             
             // Pastikan response memiliki data user sebelum menyimpan
             if (response.data && response.data.user) {
-                // Simpan data user ke localStorage
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                localStorage.setItem('token', response.data.token); // ✅ Simpan JWT token
-                
-                // Navigate ke dashboard setelah localStorage pasti sudah terisi
-                navigate('/dashboard', { replace: true });
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('token', response.data.token); 
+            
+            navigate('/dashboard', { replace: true });
             } else {
                 alert("Login Gagal. Response dari server tidak valid.");
             }
@@ -61,10 +59,10 @@ export default function LoginPage() {
 
                     <div className="relative z-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
-                            <Sparkles size={14} /> AI Health Companion
+                            <Sparkles size={14} /> AI Pendamping Kesehatan
                         </div>
                         <h1 className="text-4xl md:text-5xl font-[900] leading-[1.1] tracking-tighter mb-6">
-                            Decode Your <br/> Body's Language.
+                            Pahami bahasa <br/> tubuh Anda.
                         </h1>
                         <p className="text-blue-100 font-medium text-sm md:text-base leading-relaxed max-w-sm">
                             Selamat datang kembali, Alif! Masuk untuk melanjutkan pemantauan kesehatan cerdasmu.
@@ -89,12 +87,12 @@ export default function LoginPage() {
                     </button>
 
                     <h2 className="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">Sign In</h2>
-                    <p className="text-slate-400 font-medium text-sm mb-10">Enter your credentials to access the GlukoSense app.</p>
+                    <p className="text-slate-400 font-medium text-sm mb-10">Masukkan kredensial Anda untuk mengakses aplikasi GlukoSense.</p>
 
                     <form onSubmit={handleLogin} className="space-y-6">
                         {/* Email Input */}
                         <div className="relative group">
-                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Email Address</label>
+                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Email</label>
                             <div className="absolute left-4 top-[38px] text-slate-400 group-focus-within:text-blue-600 transition-colors">
                                 <Mail size={18} />
                             </div>

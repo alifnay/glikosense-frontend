@@ -80,9 +80,14 @@ export default function ProfilePage() {
     // FUNGSI UMUM
     // ==========================================
     const handleLogout = () => {
+        // ✅ 1. Bersihkan SEMUA data sesi (User dan Token VIP)
         localStorage.removeItem('user');
+        localStorage.removeItem('token'); 
+        
         setShowLogoutModal(false);
-        navigate('/', { replace: true }); 
+        
+        // ✅ 2. Arahkan spesifik ke halaman Login (bukan '/')
+        navigate('/login', { replace: true }); 
     };
 
     const handleOpenEditModal = async () => {
