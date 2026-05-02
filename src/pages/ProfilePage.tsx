@@ -110,18 +110,19 @@ export default function ProfilePage() {
 
     const handleSavePersonalInfo = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!editName.trim()) {
-            setErrorMsg("Nama wajib diisi!");
+        if (!editName.trim() || !editPassword.trim()) {
+            setErrorMsg("Nama dan kata sandi wajib diisi!");
             return;
         }
 
         setIsUpdating(true);
         try {
             await axios.put(`https://glikosense-backend.vercel.app/api/update-personal-info/${userData.id}`, {
-                nama: editName
+                nama: editName,
+                password: editPassword
             });
 
-            const updatedUser = { ...userData, nama: editName};
+            const updatedUser = { ...userData, nama: editName, password: editPassword };
             localStorage.setItem('user', JSON.stringify(updatedUser));
             setUserData(updatedUser);
             setShowEditModal(false);
@@ -534,9 +535,31 @@ export default function ProfilePage() {
                                 </div>
                             </div>
 
+                            {/* Input Password */}
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Password</label>
+                                <div className="relative">
+                                    <Shield className="absolute left-4 top-3 text-slate-400" size={18} />
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        value={editPassword}
+                                        onChange={(e) => { setEditPassword(e.target.value); setErrorMsg(''); }}
+                                        required
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-3 pl-12 pr-12 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                                    />
+                                    <button 
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-4 top-3 text-slate-400 hover:text-blue-600"
+                                    >
+                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
+                            </div>
+
                             <button 
                                 type="submit" 
-                                disabled={isUpdating || !editName.trim()}
+                                disabled={isUpdating || !editName.trim() || !editPassword.trim()}
                                 className="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold flex items-center justify-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all active:scale-95 disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
                             >
                                 {isUpdating ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
