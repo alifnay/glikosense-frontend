@@ -8,6 +8,15 @@ export default function ProfilePage() {
     
     // States Modals
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [showOldPwd, setShowOldPwd] = useState(false);
+    const [showNewPwd, setShowNewPwd] = useState(false);
+    const [showConfirmPwd, setShowConfirmPwd] = useState(false);
+    const [isSavingPwd, setIsSavingPwd] = useState(false);
+    const [pwdError, setPwdError] = useState('');
     const [showEditModal, setShowEditModal] = useState(false);
     const [showHealthModal, setShowHealthModal] = useState(false);
     const [showAvatarModal, setShowAvatarModal] = useState(false); // ✅ Modal Avatar Baru
@@ -147,6 +156,41 @@ export default function ProfilePage() {
         }
     };
 
+    const handleChangePassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setPwdError('');
+
+        // Validasi frontend
+        if (newPassword.length < 6) {
+            setPwdError('Password baru minimal 6 karakter.');
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setPwdError('Konfirmasi password tidak cocok.');
+            return;
+        }
+
+        setIsSavingPwd(true);
+        try {
+            await axios.put(`http://localhost:8000/api/change-password/${userData.id}`, {
+                old_password: oldPassword,
+                new_password: newPassword
+            });
+
+            // Reset semua field
+            setOldPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+            setShowPasswordModal(false);
+            alert('Password berhasil diubah! ✅');
+        } catch (error: any) {
+            const pesan = error?.response?.data?.pesan || 'Gagal mengubah password.';
+            setPwdError(pesan);
+        } finally {
+            setIsSavingPwd(false);
+        }
+    };
+
     return (
         <div className="min-h-screen w-full bg-[#F6F8FA] px-4 py-5 sm:px-6 md:pl-32 md:pr-10 md:py-8 pb-24 md:pb-8 font-sans text-slate-800">
             
@@ -214,7 +258,8 @@ export default function ProfilePage() {
                         
                         <h3 className="text-xl font-bold text-slate-900 mb-6">Account Settings</h3>
                         
-                        <div className="mb-8">
+                        <div className="mb-8 flex flex-col gap-3">
+                            {/* Personal Information */}
                             <div 
                                 onClick={handleOpenEditModal}
                                 className="group p-5 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-between hover:bg-white hover:shadow-md hover:border-blue-100 transition-all cursor-pointer"
@@ -225,7 +270,24 @@ export default function ProfilePage() {
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold text-slate-800">Personal Information</p>
-                                        <p className="text-[11px] text-slate-400 font-medium">Update your basic details & password</p>
+                                        <p className="text-[11px] text-slate-400 font-medium">Perbarui nama kamu</p>
+                                    </div>
+                                </div>
+                                <ChevronRight size={18} className="text-slate-300 group-hover:text-blue-600 transition-colors" />
+                            </div>
+
+                            {/* Change Password — section baru */}
+                            <div 
+                                onClick={() => { setPwdError(''); setOldPassword(''); setNewPassword(''); setConfirmPassword(''); setShowPasswordModal(true); }}
+                                className="group p-5 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-between hover:bg-white hover:shadow-md hover:border-blue-100 transition-all cursor-pointer"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-white text-slate-400 group-hover:text-blue-600 flex items-center justify-center transition-colors">
+                                        <Shield size={20} />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold text-slate-800">Ubah Password</p>
+                                        <p className="text-[11px] text-slate-400 font-medium">Ganti password akun kamu</p>
                                     </div>
                                 </div>
                                 <ChevronRight size={18} className="text-slate-300 group-hover:text-blue-600 transition-colors" />
@@ -298,6 +360,129 @@ export default function ProfilePage() {
                         >
                             Gunakan Avatar Ini
                         </button>
+                    </div>
+                </div>
+            )}
+
+
+            {/* --- MODAL UBAH PASSWORD --- */}
+            {showPasswordModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+                    <div className="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 className="text-2xl font-extrabold text-slate-900">Ubah Password</h3>
+                                <p className="text-xs text-slate-400 font-medium mt-1">Masukkan password lama untuk verifikasi</p>
+                            </div>
+                            <button onClick={() => setShowPasswordModal(false)} className="text-slate-400 hover:text-slate-600">
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleChangePassword} className="space-y-4">
+                            {/* Password Lama */}
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Password Lama</label>
+                                <div className="relative">
+                                    <Shield className="absolute left-4 top-3.5 text-slate-400" size={18} />
+                                    <input
+                                        type={showOldPwd ? 'text' : 'password'}
+                                        value={oldPassword}
+                                        onChange={(e) => setOldPassword(e.target.value)}
+                                        placeholder="Masukkan password saat ini"
+                                        required
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-3 pl-12 pr-12 text-sm font-medium text-slate-800 placeholder:text-slate-300 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                                    />
+                                    <button type="button" onClick={() => setShowOldPwd(!showOldPwd)} className="absolute right-4 top-3.5 text-slate-400 hover:text-blue-600">
+                                        {showOldPwd ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="w-full h-px bg-slate-100 my-2"></div>
+
+                            {/* Password Baru */}
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Password Baru</label>
+                                <div className="relative">
+                                    <Shield className="absolute left-4 top-3.5 text-slate-400" size={18} />
+                                    <input
+                                        type={showNewPwd ? 'text' : 'password'}
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        placeholder="Min. 6 karakter"
+                                        required
+                                        minLength={6}
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-3 pl-12 pr-12 text-sm font-medium text-slate-800 placeholder:text-slate-300 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                                    />
+                                    <button type="button" onClick={() => setShowNewPwd(!showNewPwd)} className="absolute right-4 top-3.5 text-slate-400 hover:text-blue-600">
+                                        {showNewPwd ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
+                                {/* Strength indicator */}
+                                {newPassword.length > 0 && (
+                                    <div className="flex gap-1 mt-1">
+                                        {[1,2,3,4].map((i) => (
+                                            <div key={i} className={`h-1 flex-1 rounded-full transition-all ${
+                                                newPassword.length >= i * 3
+                                                    ? newPassword.length >= 10 ? 'bg-emerald-500'
+                                                    : newPassword.length >= 7  ? 'bg-yellow-400'
+                                                    : 'bg-red-400'
+                                                : 'bg-slate-100'
+                                            }`}></div>
+                                        ))}
+                                        <span className="text-[10px] font-bold ml-1 text-slate-400">
+                                            {newPassword.length >= 10 ? 'Kuat' : newPassword.length >= 7 ? 'Sedang' : 'Lemah'}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Konfirmasi Password */}
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Konfirmasi Password Baru</label>
+                                <div className="relative">
+                                    <Shield className="absolute left-4 top-3.5 text-slate-400" size={18} />
+                                    <input
+                                        type={showConfirmPwd ? 'text' : 'password'}
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder="Ulangi password baru"
+                                        required
+                                        className={`w-full bg-slate-50 border rounded-2xl py-3 pl-12 pr-12 text-sm font-medium text-slate-800 placeholder:text-slate-300 focus:ring-2 outline-none transition-all ${
+                                            confirmPassword && confirmPassword !== newPassword
+                                                ? 'border-red-300 focus:ring-red-100'
+                                                : 'border-slate-100 focus:ring-blue-100'
+                                        }`}
+                                    />
+                                    <button type="button" onClick={() => setShowConfirmPwd(!showConfirmPwd)} className="absolute right-4 top-3.5 text-slate-400 hover:text-blue-600">
+                                        {showConfirmPwd ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
+                                {confirmPassword && confirmPassword !== newPassword && (
+                                    <p className="text-[11px] text-red-500 font-medium">Password tidak cocok</p>
+                                )}
+                                {confirmPassword && confirmPassword === newPassword && newPassword.length >= 6 && (
+                                    <p className="text-[11px] text-emerald-500 font-medium">✓ Password cocok</p>
+                                )}
+                            </div>
+
+                            {/* Error message dari server */}
+                            {pwdError && (
+                                <div className="p-3 rounded-2xl bg-red-50 border border-red-100 text-sm text-red-600 font-medium">
+                                    {pwdError}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={isSavingPwd}
+                                className="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold flex items-center justify-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all active:scale-95 disabled:bg-blue-400 mt-2"
+                            >
+                                {isSavingPwd ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
+                                {isSavingPwd ? 'Menyimpan...' : 'Ubah Password'}
+                            </button>
+                        </form>
                     </div>
                 </div>
             )}
