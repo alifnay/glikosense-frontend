@@ -83,7 +83,6 @@ export default function ProfilePage() {
     // ==========================================
     const handleLogout = () => {
         localStorage.removeItem('user');
-        localStorage.removeItem('token');
         setShowLogoutModal(false);
         navigate('/', { replace: true }); 
     };
@@ -111,19 +110,18 @@ export default function ProfilePage() {
 
     const handleSavePersonalInfo = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!editName.trim() || !editPassword.trim()) {
-            setErrorMsg("Nama dan kata sandi wajib diisi!");
+        if (!editName.trim()) {
+            setErrorMsg("Nama wajib diisi!");
             return;
         }
 
         setIsUpdating(true);
         try {
             await axios.put(`https://glikosense-backend.vercel.app/api/update-personal-info/${userData.id}`, {
-                nama: editName,
-                password: editPassword
+                nama: editName
             });
 
-            const updatedUser = { ...userData, nama: editName, password: editPassword };
+            const updatedUser = { ...userData, nama: editName};
             localStorage.setItem('user', JSON.stringify(updatedUser));
             setUserData(updatedUser);
             setShowEditModal(false);
@@ -173,7 +171,7 @@ export default function ProfilePage() {
 
         setIsSavingPwd(true);
         try {
-            await axios.put(`https://glikosense-backend.vercel.app/api/change-password/${userData.id}`, {
+            await axios.put(`http://localhost:8000/api/change-password/${userData.id}`, {
                 old_password: oldPassword,
                 new_password: newPassword
             });
@@ -538,7 +536,7 @@ export default function ProfilePage() {
 
                             <button 
                                 type="submit" 
-                                disabled={isUpdating || !editName.trim() || !editPassword.trim()}
+                                disabled={isUpdating || !editName.trim()}
                                 className="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold flex items-center justify-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all active:scale-95 disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
                             >
                                 {isUpdating ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
