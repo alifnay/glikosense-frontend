@@ -302,13 +302,16 @@ export default function ChatPage() {
                                         return;
                                     }
 
+                                    const token = localStorage.getItem('token');
                                     await axios.post('https://glikosense-backend.vercel.app/api/simpan-jurnal', {
-                                        userId: user.id, // <-- SEKARANG SUDAH DINAMIS
+                                        userId: user.id,
                                         ...extractedData.ringkasan,
                                         status_kesehatan: extractedData.insight_medis.status,
                                         pesan_insight: extractedData.insight_medis.pesan,
                                         detail_makanan: extractedData.detail_makanan,
                                         detail_aktivitas: extractedData.detail_aktivitas
+                                    }, {
+                                        headers: { Authorization: `Bearer ${token}` } 
                                     });
                                     alert("Jurnal Berhasil Disimpan! 🎉");
                                     setHasData(false);

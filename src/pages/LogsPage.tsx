@@ -75,8 +75,10 @@ export default function LogsPage() {
                 window.addEventListener('avatarUpdated', handleAvatarUpdate);
                 
 
-                // ✅ FIX: Kirim userId sebagai query param agar backend filter per user
-                const response = await axios.get(`https://glikosense-backend.vercel.app/api/riwayat-jurnal?userId=${user.id}`);
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`https://glikosense-backend.vercel.app/api/riwayat-jurnal?userId=${user.id}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
                 const rawData: JurnalHistory[] = response.data;
 
                 // 4. Format data agar sesuai dengan gaya tampilan React

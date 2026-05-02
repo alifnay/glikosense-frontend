@@ -88,10 +88,19 @@ export default function Home() {
 
         window.addEventListener('avatarUpdated', handleAvatarUpdate);
 
-        const fetchWithRetry = async (url: string, retries = MAX_RETRY): Promise<any> => {
+const fetchWithRetry = async (url: string, retries = MAX_RETRY): Promise<any> => {
+            // ✅ 1. Ambil token dari brankas browser (localStorage)
+            const token = localStorage.getItem('token'); 
+
             for (let attempt = 1; attempt <= retries; attempt++) {
                 try {
-                    const res = await axios.get(url, { timeout: 8000 });
+                    const res = await axios.get(url, { 
+                        timeout: 8000,
+                        // ✅ 2. Sisipkan token ke dalam Header layaknya tiket VIP
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
                     return res.data;
                 } catch (err) {
                     console.warn(`Attempt ${attempt} gagal untuk ${url}`);
