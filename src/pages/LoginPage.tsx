@@ -17,6 +17,7 @@ export default function LoginPage() {
             if (response.data && response.data.user) {
                 // Simpan data user ke localStorage
                 localStorage.setItem('user', JSON.stringify(response.data.user));
+                localStorage.setItem('token', response.data.token); // ✅ Simpan JWT token
                 
                 // Navigate ke dashboard setelah localStorage pasti sudah terisi
                 navigate('/dashboard', { replace: true });

@@ -203,11 +203,11 @@ export default function Home() {
                 {/* Title Area */}
                 <div className="col-span-12 xl:col-span-4 flex flex-col justify-center">
                     <h1 className="text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-                        Daily <br/> Tracking
+                        Pemantauan <br/> Harian
                     </h1>
                     <div className="flex items-center gap-2 mt-4">
                         <span className="h-2 w-2 rounded-full bg-blue-500"></span>
-                        <p className="text-slate-500 text-sm font-medium">AI Health Assistant Log</p>
+                        <p className="text-slate-500 text-sm font-medium">Catatan Asisten Kesehatan AI</p>
                     </div>
                 </div>
 
@@ -222,7 +222,7 @@ export default function Home() {
                         </div>
                         <div className="relative z-10 flex-1">
                             <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-bold text-lg text-white tracking-wide">AI Medical Insight</h3>
+                                <h3 className="font-bold text-lg text-white tracking-wide">Insight Kesehatan AI</h3>
                                 {/* ✅ Button info GL */}
                                 <button
                                     onClick={() => setShowGlModal(true)}
@@ -241,10 +241,10 @@ export default function Home() {
                     <div className="h-full rounded-[2rem] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-50 flex flex-col justify-between">
                         <div>
                             <div className="flex items-center justify-between mb-6">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Calorie Summary</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ringkasan Kalori</p>
                                 <div className="h-8 w-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500"><Utensils size={16}/></div>
                             </div>
-                            <h2 className="text-xl font-bold text-slate-800 mb-1">Today's Intake</h2>
+                            <h2 className="text-xl font-bold text-slate-800 mb-1">Asupan Hari Ini</h2>
                             <div className="flex items-baseline gap-2">
                                 <span className="text-5xl font-extrabold text-slate-900 tracking-tight">{kaloriMasuk}</span>
                                 <span className="text-sm font-semibold text-slate-400">kcal masuk</span>
@@ -301,8 +301,8 @@ export default function Home() {
                         </div>
                         <div className="mt-8">
                             <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase mb-2">
-                                <span>Daily Level</span>
-                                <span>Limit: 100</span>
+                                <span>Level Harian</span>
+                                <span>Batas: 100</span>
                             </div>
                             <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                                 {/* ✅ Warna progress bar berubah sesuai level risiko */}
@@ -319,7 +319,7 @@ export default function Home() {
                 <div className="col-span-12 xl:col-span-4 xl:row-span-2">
                     <div className="h-full rounded-[2rem] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-50 flex flex-col">
                         <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-bold text-slate-800">Physical Activity</h2>
+                            <h2 className="text-xl font-bold text-slate-800">Aktivitas Fisik</h2>
                         </div>
 
                         {jurnal && jurnal.aktivitas.length > 0 ? (
@@ -352,7 +352,7 @@ export default function Home() {
                         <div className="mt-6 rounded-3xl bg-[#F4F7FB] p-6 border border-blue-50/50 relative overflow-hidden">
                             <div className="flex items-center gap-2 text-blue-600 mb-3">
                                 <TrendingUp size={16} />
-                                <span className="text-[10px] font-bold uppercase tracking-widest">Activity Tip</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest">Tips Aktivitas</span>
                             </div>
                             <p className="text-sm text-slate-600 leading-relaxed font-medium">
                                 {kaloriKeluar > 0

@@ -7,10 +7,11 @@ import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage'; // Import Landing
 import LoginPage from './pages/LoginPage';     // Import Login
 import RegisterPage from './pages/RegisterPage'; // Import Register
+import NotFoundPage from './pages/NotFoundPage'; // Import 404
 
-// ✅ FIX: Cek key 'user' — sesuai dengan apa yang disimpan oleh LoginPage
+// ✅ Cek JWT token untuk auth
 const getAuthToken = () =>
-	localStorage.getItem('user');
+	localStorage.getItem('token');
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 	if (!getAuthToken()) {
@@ -80,6 +81,9 @@ function App() {
                 <Route path="/profile" element={
                     <ProtectedRoute><ProfilePage /></ProtectedRoute>
                 } />
+
+                {/* ✅ 404 — semua route yang tidak terdaftar */}
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
 		</AppLayout>
 		</BrowserRouter>

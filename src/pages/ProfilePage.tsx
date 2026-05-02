@@ -83,6 +83,7 @@ export default function ProfilePage() {
     // ==========================================
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         setShowLogoutModal(false);
         navigate('/', { replace: true }); 
     };
@@ -172,7 +173,7 @@ export default function ProfilePage() {
 
         setIsSavingPwd(true);
         try {
-            await axios.put(`http://localhost:8000/api/change-password/${userData.id}`, {
+            await axios.put(`https://glikosense-backend.vercel.app/api/change-password/${userData.id}`, {
                 old_password: oldPassword,
                 new_password: newPassword
             });
@@ -532,28 +533,6 @@ export default function ProfilePage() {
                                         readOnly
                                         className="w-full bg-slate-100 border border-slate-200 rounded-2xl py-3 pl-12 pr-4 text-sm font-bold text-slate-500 cursor-not-allowed outline-none"
                                     />
-                                </div>
-                            </div>
-
-                            {/* Input Password */}
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Password</label>
-                                <div className="relative">
-                                    <Shield className="absolute left-4 top-3 text-slate-400" size={18} />
-                                    <input 
-                                        type={showPassword ? "text" : "password"} 
-                                        value={editPassword}
-                                        onChange={(e) => { setEditPassword(e.target.value); setErrorMsg(''); }}
-                                        required
-                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-3 pl-12 pr-12 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
-                                    />
-                                    <button 
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-4 top-3 text-slate-400 hover:text-blue-600"
-                                    >
-                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                    </button>
                                 </div>
                             </div>
 
