@@ -29,6 +29,7 @@ interface UIExtractedData {
     };
     insight_medis: { 
         status: string; 
+        status_kesehatan: string;
         pesan: string; 
     };
     tidak_ditemukan: string[];
@@ -43,6 +44,7 @@ export default function ChatPage() {
     const [userName, setUserName] = useState<string>('...');
     const [userEmail, setUserEmail] = useState<string>('...');
     const [activeAvatar, setActiveAvatar] = useState('User');
+    const [userWeight, setUserWeight] = useState<number>(65);
 
     useEffect(() => {
         const userDataString = localStorage.getItem('user');
@@ -50,6 +52,7 @@ export default function ChatPage() {
             const user = JSON.parse(userDataString);
             setUserName(user.nama || 'User');
             setUserEmail(user.email || 'user@email.com');
+            if (user.berat_badan) setUserWeight(parseFloat(user.berat_badan));
         }
 
         const userString = localStorage.getItem('user');
@@ -85,7 +88,7 @@ export default function ChatPage() {
                 },
                 body: JSON.stringify({
                     teks_jurnal: journalInput,
-                    berat_badan: 65 
+                    berat_badan: userWeight 
                 })
             });
 
@@ -306,7 +309,7 @@ export default function ChatPage() {
                                     await axios.post('https://glikosense-backend.vercel.app/api/simpan-jurnal', {
                                         userId: user.id,
                                         ...extractedData.ringkasan,
-                                        status_kesehatan: extractedData.insight_medis.status,
+                                        status_kesehatan: extractedData.insight_medis.status_kesehatan, 
                                         pesan_insight: extractedData.insight_medis.pesan,
                                         detail_makanan: extractedData.detail_makanan,
                                         detail_aktivitas: extractedData.detail_aktivitas

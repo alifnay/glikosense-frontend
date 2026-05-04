@@ -34,7 +34,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 	const location = useLocation();
 	
 	// Daftar rute di mana Sidebar (NavRail) TIDAK BOLEH muncul
-	const noSidebarRoutes = ['/', '/login', '/register'];
+	const noSidebarRoutes = ['/', '/login', '/register', '/404'];
 	const showSidebar = !noSidebarRoutes.includes(location.pathname);
 
 	return (
