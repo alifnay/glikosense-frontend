@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { User, Mail, Shield, ChevronRight, ChevronLeft, Heart, LogOut, Eye, EyeOff, Save, X, Loader2, AlertCircle, Edit3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
     const navigate = useNavigate();
@@ -149,9 +150,10 @@ export default function ProfilePage() {
             localStorage.setItem('user', JSON.stringify(response.data.user));
             setUserData(response.data.user);
             setShowHealthModal(false);
+            toast.success("Health Bio berhasil diperbarui!");
         } catch (error) {
             console.error("Gagal update health bio:", error);
-            alert("Gagal memperbarui Health Bio.");
+            toast.error("Gagal memperbarui Health Bio.");
         } finally {
             setIsUpdatingBio(false);
         }
@@ -187,7 +189,7 @@ export default function ProfilePage() {
             setNewPassword('');
             setConfirmPassword('');
             setShowPasswordModal(false);
-            alert('Password berhasil diubah! ✅');
+            toast.success('Password berhasil diubah! ✅');
         } catch (error: any) {
             const pesan = error?.response?.data?.pesan || 'Gagal mengubah password.';
             setPwdError(pesan);

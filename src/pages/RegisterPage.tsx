@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Mail, Lock, Sparkles, ArrowRight, Bot, User, Scale, X } from 'lucide-react';
-
+import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -25,13 +25,13 @@ export default function RegisterPage() {
                 berat_badan: beratBadan
             });
 
-            alert("Pendaftaran berhasil! Silakan Login.");
+            toast.success("Pendaftaran berhasil! Silakan Login.");
             // Arahkan ke Login setelah sukses register
             navigate('/login'); 
         } catch (error: any) {
             console.error("Gagal mendaftar:", error);
             const pesanError = error.response?.data?.pesan || "Terjadi kesalahan saat pendaftaran.";
-            alert(pesanError);
+            toast.error(pesanError);
         } finally {
             setIsLoading(false);
         }

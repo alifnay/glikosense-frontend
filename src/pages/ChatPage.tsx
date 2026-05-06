@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Sparkles, Dumbbell, Flame, Utensils, Settings, Check, Loader2, AlertCircle, Droplet } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 // 1. Interface yang sudah diperbarui sesuai Output Flask & MySQL
 interface UIExtractedData {
@@ -77,7 +78,10 @@ export default function ChatPage() {
 
     const handleAnalyze = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!journalInput.trim()) return;
+        if (!journalInput.trim()) {
+            toast.error("Teks jurnal tidak boleh kosong.");
+            return;
+        }
         setIsAnalyzing(true);
         
         try {
@@ -110,7 +114,7 @@ export default function ChatPage() {
             setHasData(true);
         } catch (error) {
             console.error("Gagal terhubung ke AI:", error);
-            alert("Maaf, server AI sedang tidak merespons.");
+            toast.error("Maaf, server AI sedang tidak merespons.");
         } finally {
             setIsAnalyzing(false);
         }
@@ -301,7 +305,7 @@ export default function ChatPage() {
                                     const user = userDataString ? JSON.parse(userDataString) : null;
 
                                     if (!user) {
-                                        alert("Sesi login tidak valid!");
+                                        toast.error("Sesi login tidak valid!");
                                         return;
                                     }
 
@@ -316,10 +320,10 @@ export default function ChatPage() {
                                     }, {
                                         headers: { Authorization: `Bearer ${token}` } 
                                     });
-                                    alert("Jurnal Berhasil Disimpan! 🎉");
+                                    toast.success("Jurnal berhasil disimpan! 🎉");
                                     setHasData(false);
                                 } catch (e) {
-                                    alert("Gagal menyimpan ke MySQL.");
+                                    toast.error("Gagal menyimpan jurnal ke database.");
                                 }
                             }}
                             className="w-full py-4 rounded-full font-bold flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/30 cursor-pointer transition-all"

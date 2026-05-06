@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage'; // Import Landing
 import LoginPage from './pages/LoginPage';     // Import Login
 import RegisterPage from './pages/RegisterPage'; // Import Register
 import NotFoundPage from './pages/NotFoundPage'; // Import 404
+import { Toaster } from 'react-hot-toast';     // Import Toaster
 
 // ✅ Cek JWT token untuk auth
 const getAuthToken = () =>
@@ -53,6 +54,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 function App() {
 	return (
 		<BrowserRouter>
+			<Toaster position="top-center" />
 		{/* Bungkus Routes dengan AppLayout */}
 		<AppLayout>
 			<Routes>

@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Sparkles, ArrowRight, Bot, X } from 'lucide-react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const response = await axios.post('https://glikosense-backend.vercel.app/api/login', { email, password });
             
@@ -20,12 +23,14 @@ export default function LoginPage() {
             
             navigate('/dashboard', { replace: true });
             } else {
-                alert("Login Gagal. Response dari server tidak valid.");
+                toast.error("Login Gagal. Response dari server tidak valid.");
             }
         } catch (error: any) {
             // Tampilkan pesan error spesifik dari server jika ada
             const pesanError = error?.response?.data?.pesan || "Login Gagal. Cek kembali email dan password.";
-            alert(pesanError);
+            toast.error(pesanError);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -127,10 +132,13 @@ export default function LoginPage() {
                         {/* Submit Button */}
                         <button 
                             type="submit"
-                            className="w-full mt-4 px-8 py-4 rounded-2xl bg-blue-600 text-white font-bold text-base flex items-center justify-center gap-3 shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition active:scale-95 group"
+                            disabled={isLoading}
+                            className={`w-full mt-4 px-8 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-3 shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition active:scale-95 group ${
+                                isLoading ? 'bg-blue-400 cursor-not-allowed text-white/70' : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95'
+                            }`}
                         >
-                            Sign In to App
-                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            {isLoading ? 'Memproses...' : 'Sign In to App'}
+                            {!isLoading && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
                         </button>
                     </form>
 
