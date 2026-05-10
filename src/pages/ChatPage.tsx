@@ -330,6 +330,13 @@ export default function ChatPage() {
                         >
                             <Check size={20} /> Save Entry to Database
                         </button>
+
+                        <div className="mt-2 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-start gap-3">
+                            <AlertCircle size={20} className="text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-[12px] text-amber-700 leading-relaxed font-medium">
+                                <strong>Perhatian:</strong> Aplikasi ini ditujukan untuk tindakan preventif (pencegahan) bagi individu berisiko, bukan untuk pengganti diagnosis atau terapi pasien diabetes.
+                            </p>
+                        </div>
                     </div>
                 </div>
             )}

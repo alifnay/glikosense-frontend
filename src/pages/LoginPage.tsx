@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Sparkles, ArrowRight, Bot, X } from 'lucide-react';
+import { Mail, Lock, Sparkles, ArrowRight, Bot, X, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -142,12 +142,19 @@ export default function LoginPage() {
                         </button>
                     </form>
 
-                    <p className="text-center text-xs text-slate-400 mt-10 font-medium">
+                    <p className="text-center text-xs text-slate-400 mt-8 font-medium">
                         Don't have an account?{' '} 
                         <button onClick={() => navigate('/register')} className="font-bold text-blue-600 hover:text-blue-700 cursor-pointer">
                             Create Account
                         </button>.
                     </p>
+
+                    <div className="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-100 flex items-start gap-3">
+                        <AlertCircle size={18} className="text-amber-500 shrink-0 mt-0.5" />
+                        <p className="text-[11px] text-amber-700 leading-tight">
+                            <strong>Perhatian:</strong> Aplikasi ini ditujukan untuk tindakan preventif (pencegahan) bagi individu berisiko, bukan untuk pengganti diagnosis atau terapi pasien diabetes.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

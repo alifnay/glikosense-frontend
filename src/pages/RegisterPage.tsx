@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Mail, Lock, Sparkles, ArrowRight, Bot, User, Scale, X } from 'lucide-react';
+import { Mail, Lock, Sparkles, ArrowRight, Bot, User, Scale, X, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
@@ -67,7 +67,7 @@ export default function RegisterPage() {
                         <X size={20} />
                     </button>
 
-                    <h2 className="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">Buat Akun</h2>
+                    <h2 className="text-3xl font-extrabold text-slate-900 mb-2 ml-8 tracking-tight">Buat Akun</h2>
                     <p className="text-slate-400 font-medium text-sm mb-6">Bergabunglah dan mulai perjalanan kesehatan Anda.</p>
 
                     <form onSubmit={handleRegister} className="space-y-4">
@@ -160,6 +160,13 @@ export default function RegisterPage() {
                             Login
                         </button>.
                     </p>
+
+                    <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex items-start gap-3">
+                        <AlertCircle size={18} className="text-amber-500 shrink-0 mt-0.5" />
+                        <p className="text-[11px] text-amber-700 leading-tight">
+                            <strong>Perhatian:</strong> Aplikasi ini ditujukan untuk tindakan preventif (pencegahan) bagi individu berisiko, bukan untuk pengganti diagnosis atau terapi pasien diabetes.
+                        </p>
+                    </div>
                 </div>
 
                 {/* === KANAN: Branding & Experience === */}

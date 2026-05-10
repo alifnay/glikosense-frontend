@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Settings, Sparkles, TrendingUp, Activity, Droplets, CheckCircle2, Loader2, HelpCircle, X, BookOpen, Zap, Apple, Utensils } from 'lucide-react';
+import { Settings, Sparkles, TrendingUp, Activity, Droplets, CheckCircle2, Loader2, HelpCircle, X, BookOpen, Zap, Apple, Utensils, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -486,6 +486,13 @@ const fetchWithRetry = async (url: string, retries = MAX_RETRY): Promise<any> =>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="col-span-12 mt-4 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-start gap-3">
+                    <AlertCircle size={20} className="text-amber-500 shrink-0 mt-0.5" />
+                    <p className="text-[12px] text-amber-700 leading-relaxed font-medium">
+                        <strong>Perhatian:</strong> Aplikasi ini ditujukan untuk tindakan preventif (pencegahan) bagi individu berisiko, bukan untuk pengganti diagnosis atau terapi pasien diabetes.
+                    </p>
                 </div>
 
             </div>

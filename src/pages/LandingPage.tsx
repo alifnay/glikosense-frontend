@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Activity, Brain, ShieldCheck } from 'lucide-react';
+import { Activity, Brain, ShieldCheck, AlertTriangle } from 'lucide-react';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -288,6 +288,23 @@ export default function LandingPage() {
                             >
                                 Buat Akun Sekarang
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── DISCLAIMER BANNER ─── */}
+            <section className="relative z-10 pb-16 px-6">
+                <div className="max-w-3xl mx-auto">
+                    <div className="rounded-2xl p-5 border border-amber-500/20 bg-amber-500/5 flex items-start gap-4">
+                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400 shrink-0">
+                            <AlertTriangle size={20} />
+                        </div>
+                        <div>
+                            <h4 className="text-amber-400 font-semibold text-sm mb-1 uppercase tracking-wider">Perhatian</h4>
+                            <p className="text-white/50 text-[13px] leading-relaxed">
+                                Aplikasi ini ditujukan murni untuk <strong>tindakan preventif (pencegahan) </strong> bagi individu berisiko, dan <strong>bukan sebagai pengganti diagnosis, perawatan medis, atau terapi pasien diabetes.</strong> Harap selalu berkonsultasi dengan dokter untuk keputusan medis Anda.
+                            </p>
                         </div>
                     </div>
                 </div>

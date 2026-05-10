@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Settings, Calendar, Flame, Activity, ChevronRight, ChevronDown, Loader2, X } from 'lucide-react';
+import { Settings, Calendar, Flame, Activity, ChevronRight, ChevronDown, Loader2, X, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // 1. Tipe data mentah dari Backend (Sesuai schema.prisma)
@@ -302,6 +302,13 @@ export default function LogsPage() {
                         Muat Data Lebih Lama
                     </button>
                 )}
+
+                <div className="mt-6 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-start gap-3">
+                    <AlertCircle size={20} className="text-amber-500 shrink-0 mt-0.5" />
+                    <p className="text-[12px] text-amber-700 leading-relaxed font-medium">
+                        <strong>Perhatian:</strong> Aplikasi ini ditujukan untuk tindakan preventif (pencegahan) bagi individu berisiko, bukan untuk pengganti diagnosis atau terapi pasien diabetes.
+                    </p>
+                </div>
             </div>
 
             {/* Modal / Popup Detail */}
