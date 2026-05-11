@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Sparkles, Dumbbell, Flame, Utensils, Settings, Check, Loader2, AlertCircle, Droplet } from 'lucide-react';
+import { Sparkles, Dumbbell, Flame, Utensils, Settings, Check, Loader2, AlertCircle, Droplet, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -160,6 +160,14 @@ export default function ChatPage() {
                                 placeholder="Contoh: Tadi pagi makan bubur ayam 1 porsi, lalu sore lari 30 menit..."
                                 className="w-full h-40 p-5 rounded-2xl bg-slate-50 border-none outline-none resize-none focus:ring-2 focus:ring-blue-100 transition-all text-slate-700 text-lg"
                             ></textarea>
+                            
+                            <div className="mt-4 flex items-start gap-3 bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
+                                <Info size={18} className="text-blue-500 shrink-0 mt-0.5" />
+                                <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                                    <strong className="text-blue-700">Catatan AI:</strong> Perhitungan yang dilakukan oleh AI, dihitung dengan perhitungan  <strong className="text-slate-700">1 porsi (±100 gram/ml)</strong>. Pastikan anda memasukkan data dengan format yang jelas untuk hasil terbaik.
+                                </p>
+                            </div>
+
                             <div className="flex justify-end mt-6">
                                 <button type="submit" disabled={isAnalyzing} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition flex items-center gap-2">
                                     {isAnalyzing ? <><Loader2 className="animate-spin" /> Analyzing...</> : 'Analyze Entry'}
