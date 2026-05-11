@@ -39,6 +39,7 @@ interface UIExtractedData {
 export default function ChatPage() {
     const [journalInput, setJournalInput] = useState("");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const [hasData, setHasData] = useState(false);
     const [extractedData, setExtractedData] = useState<UIExtractedData | null>(null);
 
@@ -306,7 +307,9 @@ export default function ChatPage() {
                         </div>
 
                         <button 
+                            disabled={isSaving}
                             onClick={async () => {
+                                setIsSaving(true);
                                 try {
                                     // Ambil data user yang sedang login
                                     const userDataString = localStorage.getItem('user');
@@ -314,6 +317,7 @@ export default function ChatPage() {
 
                                     if (!user) {
                                         toast.error("Sesi login tidak valid!");
+                                        setIsSaving(false);
                                         return;
                                     }
 
@@ -332,11 +336,19 @@ export default function ChatPage() {
                                     setHasData(false);
                                 } catch (e) {
                                     toast.error("Gagal menyimpan jurnal ke database.");
+                                } finally {
+                                    setIsSaving(false);
                                 }
                             }}
-                            className="w-full py-4 rounded-full font-bold flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/30 cursor-pointer transition-all"
+                            className={`w-full py-4 rounded-full font-bold flex items-center justify-center gap-2 text-white shadow-lg shadow-blue-500/30 transition-all ${
+                                isSaving ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            }`}
                         >
-                            <Check size={20} /> Save Entry to Database
+                            {isSaving ? (
+                                <><Loader2 size={20} className="animate-spin" /> Saving...</>
+                            ) : (
+                                <><Check size={20} /> Save Entry to Database</>
+                            )}
                         </button>
 
                         <div className="mt-2 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-start gap-3">
