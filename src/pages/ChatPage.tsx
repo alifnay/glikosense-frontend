@@ -155,12 +155,18 @@ export default function ChatPage() {
                             <h2 className="text-2xl font-bold text-slate-800">Smart Journal</h2>
                         </div>
                         <form onSubmit={handleAnalyze}>
-                            <textarea 
-                                value={journalInput}
-                                onChange={(e) => setJournalInput(e.target.value)}
-                                placeholder="Contoh: Tadi pagi makan bubur ayam 1 porsi, lalu sore lari 30 menit..."
-                                className="w-full h-40 p-5 rounded-2xl bg-slate-50 border-none outline-none resize-none focus:ring-2 focus:ring-blue-100 transition-all text-slate-700 text-lg"
-                            ></textarea>
+                            <div className="relative">
+                                <textarea 
+                                    value={journalInput}
+                                    onChange={(e) => setJournalInput(e.target.value)}
+                                    maxLength={500}
+                                    placeholder="Contoh: Tadi pagi makan bubur ayam 1 porsi, lalu sore lari 30 menit..."
+                                    className="w-full h-40 p-5 pb-8 rounded-2xl bg-slate-50 border-none outline-none resize-none focus:ring-2 focus:ring-blue-100 transition-all text-slate-700 text-lg"
+                                ></textarea>
+                                <div className={`absolute bottom-4 right-5 text-xs font-bold ${journalInput.length >= 500 ? 'text-red-500' : 'text-slate-400'}`}>
+                                    {journalInput.length}/500
+                                </div>
+                            </div>
                             
                             <div className="mt-4 flex items-start gap-3 bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
                                 <Info size={18} className="text-blue-500 shrink-0 mt-0.5" />
