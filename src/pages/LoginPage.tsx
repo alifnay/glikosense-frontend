@@ -71,7 +71,7 @@ export default function LoginPage() {
                             Pahami bahasa <br/> tubuh Anda.
                         </h1>
                         <p className="text-blue-100 font-medium text-sm md:text-base leading-relaxed max-w-sm">
-                            Selamat datang kembali, Alif! Masuk untuk melanjutkan pemantauan kesehatan cerdasmu.
+                            Selamat datang kembali! Masuk untuk melanjutkan pemantauan kesehatan cerdasmu.
                         </p>
                     </div>
 
